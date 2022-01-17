@@ -14,6 +14,8 @@ Update your config.env file.
 
 Start the application. Run >>npm start, on the project directory.
 
+TBrowse the following url on a browser or postman: http://127.0.0.1:7575/api/v1/helloWorld.
+
 ## Connecting the Database
 
 In the ./server.js file, uncomment the DB connection method you would like to use. Remember to get your connection string from atlas cloud, if you are using ATas.
