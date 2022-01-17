@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const helloWorldRouter = require('./routes/helloWorld');
 const globalErrorHandler = require('./exceptions/handler');
 
 const AppError = require('./utils/appError');
@@ -16,7 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 //Routes
-// app.use('/api/v1/model', modelRouter);
+app.use('/api/v1/helloWorld', helloWorldRouter);
 
 // Catching routes not found in the server
 app.all('*', (req, res, next) => {
