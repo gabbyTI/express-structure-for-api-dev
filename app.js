@@ -2,6 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 
 const helloWorldRouter = require('./routes/helloWorld');
 const globalErrorHandler = require('./exceptions/handler');
@@ -32,6 +35,19 @@ app.use('/api',limiter);
 
 // Body Parser, allows a post body to be added to the request object
 app.use(express.json());
+
+//Data sanitization against NoSQL query injection 
+app.use(mongoSanitize());
+
+//Data sanitization against XSS 
+app.use(xss());
+
+// Prevent parameter pollution (duplicate parameters)
+app.use(hpp({
+	whitelist: [
+		// mention parameter values allowed to have duplicate value here
+	]
+}));
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));

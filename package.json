@@ -16,12 +16,15 @@
 	"dependencies": {
 		"dotenv": "^13.0.1",
 		"express": "^4.17.2",
+		"express-mongo-sanitize": "^2.2.0",
 		"express-rate-limit": "^6.3.0",
 		"fs": "^0.0.1-security",
 		"helmet": "^5.0.2",
+		"hpp": "^0.2.3",
 		"http": "^0.0.1-security",
 		"mongoose": "^6.1.6",
-		"morgan": "^1.10.0"
+		"morgan": "^1.10.0",
+		"xss-clean": "^0.1.1"
 	},
 	"devDependencies": {
 		"eslint": "^8.6.0",
