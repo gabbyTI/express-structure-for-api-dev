@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
 const helloWorldRouter = require('./routes/helloWorld');
@@ -9,8 +10,12 @@ const AppError = require('./utils/appError');
 
 const app = express();
 
+//Set security http headers
+app.use(helmet())
+
 console.log(`You are in ${process.env.NODE_ENV} environment.`);
 
+// Development Logging
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev')); // prints the request info
 }
@@ -22,11 +27,14 @@ const limiter = rateLimit({
 	message: 'Too many requests from this IP, please try again in an hour!'
 });
 
-// Applying the limiter to onlyapi routes
+// Applying the limiter to only api routes
 app.use('/api',limiter);
 
-// allows a post body to be added to the request object
+// Body Parser, allows a post body to be added to the request object
 app.use(express.json());
+
+// Serving static files
+app.use(express.static(`${__dirname}/public`));
 
 //Routes
 app.use('/api/v1/helloWorld', helloWorldRouter);

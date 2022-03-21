@@ -18,6 +18,7 @@
 		"express": "^4.17.2",
 		"express-rate-limit": "^6.3.0",
 		"fs": "^0.0.1-security",
+		"helmet": "^5.0.2",
 		"http": "^0.0.1-security",
 		"mongoose": "^6.1.6",
 		"morgan": "^1.10.0"
