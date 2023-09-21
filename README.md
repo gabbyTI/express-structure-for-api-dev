@@ -8,13 +8,25 @@ Download the repo and exptract files to your project directory.
 
 Run >>npm update, on the project directory.
 
+```
+npm update
+```
+
 Run >>cp config.env.example config.env, on the project directory.
+
+```
+cp config.env.example config.env
+```
 
 Update your config.env file.
 
 Start the application. Run >>npm start, on the project directory.
 
-TBrowse the following url on a browser or postman: http://127.0.0.1:7575/api/v1/helloWorld.
+```
+npm start
+```
+
+TBrowse the following url on a browser or postman: [http://127.0.0.1:7575/api/v1/helloWorld](http://127.0.0.1:7575/api/v1/helloWorld).
 
 ## Connecting the Database
 
