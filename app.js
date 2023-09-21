@@ -5,16 +5,20 @@ const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const connectToDatabase = require('./utils/connectToDatabase');
 
 const helloWorldRouter = require('./routes/helloWorld');
 const globalErrorHandler = require('./exceptions/handler');
 
 const AppError = require('./utils/appError');
 
+console.log('Connecting to database.');
+connectToDatabase();
+
 const app = express();
 
 //Set security http headers
-app.use(helmet())
+app.use(helmet());
 
 console.log(`You are in ${process.env.NODE_ENV} environment.`);
 
@@ -27,27 +31,29 @@ if (process.env.NODE_ENV === 'development') {
 const limiter = rateLimit({
 	max: 100, // no of request
 	windowMs: 60 * 60 * 1000, // reset time in milliseconds (1 hour)
-	message: 'Too many requests from this IP, please try again in an hour!'
+	message: 'Too many requests from this IP, please try again in an hour!',
 });
 
 // Applying the limiter to only api routes
-app.use('/api',limiter);
+app.use('/api', limiter);
 
 // Body Parser, allows a post body to be added to the request object
 app.use(express.json());
 
-//Data sanitization against NoSQL query injection 
+//Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
-//Data sanitization against XSS 
+//Data sanitization against XSS
 app.use(xss());
 
 // Prevent parameter pollution (duplicate parameters)
-app.use(hpp({
-	whitelist: [
-		// mention parameter values allowed to have duplicate value here
-	]
-}));
+app.use(
+	hpp({
+		whitelist: [
+			// mention parameter values allowed to have duplicate value here
+		],
+	})
+);
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
